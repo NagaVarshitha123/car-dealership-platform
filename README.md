@@ -132,24 +132,6 @@ Tests:       XX passed, XX total
 Coverage:    Statements  XX%  Branches  XX%  Functions  XX%  Lines  XX%
 ```
 
----
-
-## My AI Usage
-
-**Tools used:** Claude (Anthropic), used directly in this chat-based environment for the majority of scaffolding, service/controller logic, and the test suite.
-
-**How I used it:**
-- Asked Claude to scaffold the backend structure (Express + Prisma + JWT auth) end-to-end after specifying Node/TypeScript and MySQL as the stack.
-- Had Claude write the `AuthService` and `VehicleService` business logic together with their corresponding Jest unit tests (mocking Prisma via `jest-mock-extended`), and the Supertest integration tests for both route groups.
-- Used Claude to scaffold the React + Tailwind frontend: API client, auth context, and the dashboard/search/admin-form components.
-- Asked Claude to review the register endpoint for a security issue (role self-assignment) — it flagged that `req.body` was being passed through unfiltered and fixed it to only accept `email`/`password` from the client.
-
-**Reflection:** AI was most useful for generating consistent, well-structured boilerplate quickly (route wiring, validation patterns, test scaffolding) so I could focus on reviewing correctness and catching design/security issues, like the role-escalation gap on registration. The raw chat log is in [`PROMPTS.md`](./PROMPTS.md).
-
-_(Replace this section with your own tools, workflow, and reflection before submitting — this describes the session that produced this scaffold.)_
-
----
-
 ## Notes on TDD workflow
 
 The commit history should show a Red→Green→Refactor pattern per the kata's guidelines — for example, committing a failing test for `VehicleService.purchase` rejecting an out-of-stock purchase, then a follow-up commit implementing the guard clause that makes it pass. When committing AI-assisted work, follow the co-author trailer format specified in the kata:
