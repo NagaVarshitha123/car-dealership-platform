@@ -1,0 +1,44 @@
+// Prisma schema for the Car Dealership Inventory System.
+// Database: MySQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String // bcrypt hash, never the plaintext password
+  role      Role     @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Vehicle {
+  id        Int      @id @default(autoincrement())
+  make      String
+  model     String
+  category  String // e.g. Sedan, SUV, Truck, Coupe
+  price     Decimal  @db.Decimal(10, 2)
+  quantity  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([make])
+  @@index([model])
+  @@index([category])
+  @@index([price])
+  @@map("vehicles")
+}
